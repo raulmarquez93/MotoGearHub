@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <label for="ordenamiento" class="form-label">Ordenar por:</label>
+      <select class="form-select" id="ordenamiento" [(ngModel)]="ordenamiento" (change)="filtrarProductos()">
+        <option value="nombreAsc">Nombre ascendente</option>
+        <option value="nombreDesc">Nombre descendente</option>
+        <option value="precioAsc">Precio ascendente</option>
+        <option value="precioDesc">Precio descendente</option>
+      </select>
+      
+    </div>
+    <div class="col-md-6">
+      <label for="busqueda" class="form-label">Buscar por nombre:</label>
+      <input type="text" class="form-control" id="busqueda" [(ngModel)]="busqueda" (ngModelChange)="filtrarProductos()">
+    </div>
+  </div>
+  
+
+  <h2 class="mt-4 mb-4">Listado de productos</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <label for="categoria" class="form-label">Categoría:</label>
+      <select class="form-select" id="categoria" [(ngModel)]="filtroCategoria" (ngModelChange)="filtrarProductos()">
+        <option value="">Todos</option>
+        <option value="Categoria 1">categoria1</option>
+        <option value="Categoria 2">categoria2</option>
+        <option value="Categoria 3">categoria3</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label for="precioMinimo" class="form-label">Precio Mínimo:</label>
+      <input type="number" class="form-control" id="precioMinimo" [(ngModel)]="filtroPrecioMinimo" (ngModelChange)="filtrarProductos()">
+    </div>
+
+    <div class="col-md-3">
+      <label for="precioMaximo" class="form-label">Precio Máximo:</label>
+      <input type="number" class="form-control" id="precioMaximo" [(ngModel)]="filtroPrecioMaximo" (ngModelChange)="filtrarProductos()">
+    </div>
+  </div>
+
+  <!-- Lista de productos filtrada -->
+  <div class="row mt-4">
+    <div *ngFor="let producto of productosFiltrados" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card" [ngClass]="{'sin-stock': producto.stock === 0}">
+        <a [routerLink]="['/producto', producto.id]">
+          <img class="card-img-top" src="{{ producto.imagen }}" alt="{{ producto.nombre }}" style="max-height: 150px;">
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p *ngIf="producto.stock > 0" class="card-text"><strong>Precio:</strong> {{ producto.precio }}</p>
+            <p *ngIf="producto.stock > 0" class="card-text"><strong>Stock:</strong> {{ producto.stock }}</p>
+            <p *ngIf="producto.stock === 0" class="card-text text-muted">Sin stock</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manejo de casos sin resultados -->
+  <div *ngIf="productosFiltrados && productosFiltrados.length === 0" class="alert alert-warning mt-4" role="alert">
+    No se encontraron productos que coincidan con los filtros seleccionados.
+  </div>
+</div>

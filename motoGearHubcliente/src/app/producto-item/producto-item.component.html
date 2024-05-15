@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div *ngIf="producto" class="card mt-4">
+      <div class="card-header bg-primary text-white">
+          <h2 class="card-title mb-0">Detalles del Producto</h2>
+      </div>
+      <div class="card-body">
+          <img [src]="producto.data.imagen" class="img-fluid mb-3" alt="Descripción de la imagen">
+          <ul class="list-group">
+              <li class="list-group-item">Nombre: <strong>{{ producto.data.nombre }}</strong></li>
+              <li class="list-group-item">Descripción: <span class="text-muted">{{ producto.data.descripcion }}</span></li>
+              <li class="list-group-item">Precio: <strong>{{ producto.data.precio }}€</strong></li>
+              <li class="list-group-item">Stock: <strong>{{ producto.data.stock }}</strong></li>
+          </ul>
+          <button class="btn btn-primary mt-3" (click)="agregarAlCarrito()">Agregar al Carrito</button>
+      </div>
+      <div *ngIf="isAdmin" class="card-footer bg-light">
+          <h3>Opciones de Administrador</h3>
+          <button class="btn btn-warning mr-2" (click)="editarProducto()">Editar</button>
+          <button class="btn btn-danger" (click)="eliminarProducto()">Eliminar</button>
+      </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmacionModalLabel">Confirmación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Deseas ir a la cesta?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" id="confirmarBtn">Sí</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

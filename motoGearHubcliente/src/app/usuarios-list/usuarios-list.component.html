@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h2 class="mt-4 mb-4">Lista de usuarios</h2>
+
+  <!-- Buscador por nombre -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="busqueda" class="form-label">Buscar por nombre:</label>
+        <input type="text" class="form-control" id="busqueda" [(ngModel)]="busqueda" (ngModelChange)="filtrarUsuarios()">
+      </div>
+    </div>
+  </div>
+
+  <!-- Botones de ordenación -->
+  <div class="col-md-6">
+    <label for="ordenamiento" class="form-label">Ordenar por:</label>
+    <select class="form-select" id="ordenamiento" [(ngModel)]="ordenamiento" (ngModelChange)="filtrarUsuarios()">
+      <option value="nombreAsc">Nombre ascendente</option>
+      <option value="nombreDesc">Nombre descendente</option>
+    </select>
+    
+  </div>
+
+  <!-- Lista de usuarios -->
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo Electrónico</th>
+          <th *ngIf="isAdmin"></th> <!-- Columna vacía para el botón de eliminar si es admin -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUserList">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td *ngIf="isAdmin">
+            <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(user)">
+              <i class="bi bi-trash">Borrar</i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="eliminarUsuario(user)">
+              Seguir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  
+</div>

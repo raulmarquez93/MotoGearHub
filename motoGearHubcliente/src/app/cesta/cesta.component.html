@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+    <div *ngIf="productosEnCesta && productosEnCesta.length > 0">
+      <h2 class="mb-4">Productos en la cesta</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let item of productosEnCesta; let i = index" [ngClass]="{'border-top': i % 2 !== 0}">
+                <a [routerLink]="['/producto', item.productoDetallado?.id]">
+                    <td style="width: 30%;"><img [src]="item.productoDetallado?.imagen" alt="Imagen del producto" class="img-fluid" style="max-width: 100px;"></td>
+                <td class="align-middle">
+                  <p class="mb-0"><strong>Nombre:</strong> {{ item.productoDetallado?.nombre }}</p>
+                  <p class="mb-0"><strong>Precio:</strong> {{ item.productoDetallado?.precio }}$</p>
+                  <p class="mb-0"><strong>Stock disponible:</strong> {{ item.productoDetallado?.stock }}</p>
+                </td>
+                <td class="align-middle">
+                  <input type="number" [(ngModel)]="item.cantidad" class="form-control mb-2" (ngModelChange)="actualizarCesta(item.productoDetallado?.id, item.cantidad)" min="1">
+                  <button class="btn btn-danger" (click)="eliminarCesta(item.productoDetallado?.id)">Eliminar</button>
+                </td>
+                </a>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <p class="mb-0"><strong>Total de compra:</strong> {{ calcularTotalCompra() }}$</p>
+          </div>
+          <button class="btn btn-primary" (click)="realizarCompra()">Comprar</button>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="productosEnCesta && productosEnCesta.length === 0" class="text-center mt-5">
+      <p>No hay productos en la cesta.</p>
+    </div>
+  </div>
+  

@@ -1,0 +1,89 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid bg-light py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h3 class="m-0">Perfil de usuario</h3>
+          </div>
+          <div class="card-body">
+            <div *ngIf="!editMode">
+              <div class="mb-3">
+                <p class="mb-1"><strong>Nombre de usuario:</strong></p>
+                <p class="d-inline">{{ userProfile.name }}</p>
+                <button class="btn btn-link btn-sm ml-2" (click)="activateEditMode('name')">Editar</button>
+              </div>
+              <div class="mb-3">
+                <p class="mb-1"><strong>Email:</strong></p>
+                <p class="d-inline">{{ userProfile.email }}</p>
+                <button class="btn btn-link btn-sm ml-2" (click)="activateEditMode('email')">Editar</button>
+              </div>
+              <div class="mb-3">
+                <p class="mb-1"><strong>Telefono:</strong></p>
+                <p class="d-inline">{{ userProfile.phone }}</p>
+                <button class="btn btn-link btn-sm ml-2" (click)="activateEditMode('phone')">Editar</button>
+              </div>
+              <div class="mb-3">
+                <p class="mb-1"><strong>Nombre:</strong></p>
+                <p class="d-inline">{{ userProfile.nombreReal }}</p>
+                <button class="btn btn-link btn-sm ml-2" (click)="activateEditMode('nombreReal')">Editar</button>
+              </div>
+              <div class="mb-3">
+                <p class="mb-1"><strong>Apellidos:</strong></p>
+                <p class="d-inline">{{ userProfile.apellidos }}</p>
+                <button class="btn btn-link btn-sm ml-2" (click)="activateEditMode('apellidos')">Editar</button>
+              </div>
+              <div class="mb-0">
+                <p class="mb-1"><strong>Localizacion:</strong></p>
+                <p class="d-inline">{{ userProfile.localizacion }}</p>
+                <button class="btn btn-link btn-sm ml-2" (click)="activateEditMode('localizacion')">Editar</button>
+              </div>
+              <div class="mb-0">
+                <p class="mb-1"><strong>Contraseña:</strong></p>
+                <button class="btn btn-link btn-sm ml-2" (click)="activateEditMode('password')">Editar</button>
+              </div>
+            </div>
+            <div *ngIf="editMode">
+              <form (submit)="saveChanges(editMode, getFieldData(editMode))">
+                <div *ngIf="editMode === 'name'" class="mb-3">
+                  <label for="newName">Nuevo nombre de usuario:</label>
+                  <input type="text" id="newName" name="newName" class="form-control" [(ngModel)]="newName" required>
+                </div>
+                <div *ngIf="editMode === 'email'" class="mb-3">
+                  <label for="newEmail">Nuevo email:</label>
+                  <input type="email" id="newEmail" name="newEmail" class="form-control" [(ngModel)]="newEmail" required>
+                </div>
+                <div *ngIf="editMode === 'phone'" class="mb-3">
+                  <label for="newPhone">Nuevo teléfono:</label>
+                  <input type="text" id="newPhone" name="newPhone" class="form-control" [(ngModel)]="newPhone" required>
+                </div>
+                <div *ngIf="editMode === 'nombreReal'" class="mb-3">
+                  <label for="newNombreReal">Nuevo nombre:</label>
+                  <input type="text" id="newNombreReal" name="newNombreReal" class="form-control" [(ngModel)]="newNombreReal" required>
+                </div>
+                <div *ngIf="editMode === 'apellidos'" class="mb-3">
+                  <label for="newApellidos">Nuevos apellidos:</label>
+                  <input type="text" id="newApellidos" name="newApellidos" class="form-control" [(ngModel)]="newApellidos" required>
+                </div>
+                <div *ngIf="editMode === 'password'" class="mb-3">
+                  <label for="newPassword">Nueva contraseña:</label>
+                  <input type="text" id="newPassword" name="newPassword" class="form-control" [(ngModel)]="newPassword" required>
+                </div>
+                <div *ngIf="editMode === 'localizacion'" class="mb-3">
+                  <label for="newLocalizacion">Nueva localización:</label>
+                  <input type="text" id="newLocalizacion" name="newLocalizacion" class="form-control" [(ngModel)]="newLocalizacion" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <button type="button" class="btn btn-secondary ml-2" (click)="cancelEditMode()">Cancelar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
