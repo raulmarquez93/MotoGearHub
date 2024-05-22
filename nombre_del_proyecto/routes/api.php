@@ -19,12 +19,20 @@ use App\Http\Controllers\ValoracionController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+use App\Http\Controllers\PublicacionController;
+use App\Http\Controllers\ComentarioPublicacionController;
 
+Route::apiResource('comentarios-publicaciones', ComentarioPublicacionController::class);
+Route::put('comentarios-publicaciones/{id}', [ComentarioPublicacionController::class, 'update']);
+Route::put('/api/publicaciones/{id}', [PublicacionController::class, 'update']);
+ Route::apiResource('publicaciones', PublicacionController::class);
+// Route::apiResource('publicaciones/{id}', [PublicacionController::class,'show']);
+Route::put('/api/publicaciones/{id}', [PublicacionController::class, 'update']);
 Route::post('/valoraciones', [ValoracionController::class, 'store']);
 Route::get('/valoraciones', [ValoracionController::class, 'index']);
 Route::get('/valoraciones/{id}', [ValoracionController::class, 'show']);
 Route::put('/valoraciones/{id}', [ValoracionController::class, 'update']);
-Route::delete('/valoraciones/{userId}/{productId}', [ValoracionController::class, 'destroy']);
+Route::delete('/valoraciones/{id}', [ValoracionController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

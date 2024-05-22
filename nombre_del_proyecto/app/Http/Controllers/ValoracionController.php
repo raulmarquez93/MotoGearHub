@@ -49,29 +49,25 @@ class ValoracionController extends Controller
         return response()->json($valoracion, 200);
     }
 
-    public function destroy($userId, $productId)
-{
-    echo $userId;
-    echo $productId;
-
-    // Buscar la cesta asociada al usuario y producto específicos
-    $valoracion = Valoracion::where('id_usuario', $userId)
-                  ->where('id_producto', $productId)
-                  ->first();
-
-    // Verificar si se encontró la cesta
-    if (!$valoracion) {
-        // Si no se encontró la cesta, devuelve una respuesta JSON con un mensaje indicando que la cesta no se encontró
-        // y un código de estado HTTP 404 (Not Found)
-        return response()->json(['message' => 'Cesta no encontrada'], 404);
+    public function destroy($id)
+    {
+        // Buscar la valoración por su ID
+        $valoracion = Valoracion::find($id);
+    
+        // Verificar si se encontró la valoración
+        if (!$valoracion) {
+            // Si no se encontró la valoración, devuelve una respuesta JSON con un mensaje indicando que la valoración no se encontró
+            // y un código de estado HTTP 404 (Not Found)
+            return response()->json(['message' => 'Valoración no encontrada'], 404);
+        }
+    
+        // Eliminar la valoración
+        $valoracion->delete();
+    
+        // Devolver una respuesta JSON con un mensaje de éxito y un código de estado HTTP 200 (OK)
+        return response()->json(['message' => 'Valoración eliminada correctamente'], 200);
     }
-
-    // Eliminar la cesta
-    $valoracion->delete();
-
-    // Devolver una respuesta JSON con un mensaje de éxito y un código de estado HTTP 200 (OK)
-    return response()->json(['message' => 'Cesta eliminada correctamente'], 200);
-}
+    
 
 
 }
