@@ -51,7 +51,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ApiService } from '../api.service'; 
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
@@ -69,21 +69,41 @@ export class RegisterComponent implements OnInit {
       this.isAdmin = isAdmin;
     });
 
-    // Aquí se inicializa el formulario
     this.registroForm = this.formBuilder.group({
-      username: [''], 
-      password: [''],
-      correo: [''],   
-      phone: [''],
+      username: ['', [Validators.required, Validators.maxLength(20)]],
+      correo: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      nombreReal: ['', [Validators.required, Validators.maxLength(100)]],
+      apellidos: ['', [Validators.required, Validators.maxLength(100)]],
+      localizacion: ['', [Validators.required, Validators.maxLength(100)]],
       rol: ['User'],
-      nombreReal: [''],
-      apellidos: [''],
-      localizacion: [''],
-      confirmPassword: ['']
-    });
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), this.passwordPatternValidator()]],
+      confirmPassword: ['', Validators.required]
+    }, { validator: this.passwordMatchValidator });
+  }
+
+  passwordPatternValidator(): Validators {
+    return (control: FormControl): { [key: string]: boolean } | null => {
+      if (!control.value) {
+        return null;
+      }
+      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{':;?/>.<,])(?=.*[^\\s]).{6,20}$/;
+      const valid = regex.test(control.value);
+      return valid ? null : { invalidPassword: true };
+    };
+  }
+
+  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
   }
 
   register(): void {
+    if (this.registroForm.invalid) {
+      return;
+    }
+
     const userData = {
       username: this.registroForm.value.username,
       email: this.registroForm.value.correo,
@@ -101,19 +121,19 @@ export class RegisterComponent implements OnInit {
     this.apiService.register(userData).subscribe(
       response => {
         console.log('Usuario registrado correctamente:', response);
-        if(!this.isAdmin){
-          this.router.navigate(['/login']); // Redirigir al usuario a la página de inicio de sesión
-        }else{
-          this.registroForm = this.formBuilder.group({
-            username: [''], 
-            password: [''],
-            correo: [''],   
-            phone: [''],
-            rol: ['User'],
-            nombreReal: [''],
-            apellidos: [''],
-            localizacion: [''],
-            confirmPassword: ['']
+        if (!this.isAdmin) {
+          this.router.navigate(['/login']);
+        } else {
+          this.registroForm.reset({
+            username: '', 
+            correo: '',   
+            phone: '',
+            rol: 'User',
+            nombreReal: '',
+            apellidos: '',
+            localizacion: '',
+            password: '',
+            confirmPassword: ''
           });
         }
       },
@@ -123,3 +143,67 @@ export class RegisterComponent implements OnInit {
     );
   }  
 }
+//   isAdmin: boolean = false;
+//   registroForm!: FormGroup;
+
+//   constructor(private apiService: ApiService, private formBuilder: FormBuilder, private router: Router) {}
+
+//   ngOnInit(): void {
+//     this.apiService.isAdmin().subscribe(isAdmin => {
+//       this.isAdmin = isAdmin;
+//     });
+
+//     // Aquí se inicializa el formulario
+//     this.registroForm = this.formBuilder.group({
+//       username: [''], 
+//       password: [''],
+//       correo: [''],   
+//       phone: [''],
+//       rol: ['User'],
+//       nombreReal: [''],
+//       apellidos: [''],
+//       localizacion: [''],
+//       confirmPassword: ['']
+//     });
+//   }
+
+//   register(): void {
+//     const userData = {
+//       username: this.registroForm.value.username,
+//       email: this.registroForm.value.correo,
+//       phone: this.registroForm.value.phone,
+//       rol: this.registroForm.value.rol,
+//       nombreReal: this.registroForm.value.nombreReal,
+//       apellidos: this.registroForm.value.apellidos,
+//       localizacion: this.registroForm.value.localizacion,
+//       password: this.registroForm.value.password,
+//       confirmPassword: this.registroForm.value.confirmPassword
+//     };
+
+//     console.log('Datos de usuario:', userData);
+
+//     this.apiService.register(userData).subscribe(
+//       response => {
+//         console.log('Usuario registrado correctamente:', response);
+//         if(!this.isAdmin){
+//           this.router.navigate(['/login']); // Redirigir al usuario a la página de inicio de sesión
+//         }else{
+//           this.registroForm = this.formBuilder.group({
+//             username: [''], 
+//             password: [''],
+//             correo: [''],   
+//             phone: [''],
+//             rol: ['User'],
+//             nombreReal: [''],
+//             apellidos: [''],
+//             localizacion: [''],
+//             confirmPassword: ['']
+//           });
+//         }
+//       },
+//       error => {
+//         console.error('Error al registrar usuario:', error);
+//       }
+//     );
+//   }  
+// }

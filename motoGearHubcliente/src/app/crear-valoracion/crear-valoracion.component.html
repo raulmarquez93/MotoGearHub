@@ -1,0 +1,67 @@
+<!-- <form (ngSubmit)="crearComentario()" class="mt-3">
+  <div class="mb-3">
+    <label for="comentario" class="form-label">Comentario:</label>
+    <textarea class="form-control" id="comentario" name="comentario" [(ngModel)]="comentario" rows="3" required></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="valoracion" class="form-label">Valoración:</label>
+    <select class="form-control" id="valoracion" name="valoracion" [(ngModel)]="valoracion" required>
+      <option value="1">1/5</option>
+      <option value="2">2/5</option>
+      <option value="3">3/5</option>
+      <option value="4">4/5</option>
+      <option value="5">5/5</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form> --><app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Crear Valoración
+        </div>
+        <div class="card-body">
+          <form #valoracionForm="ngForm" (ngSubmit)="crearComentario(valoracionForm)" novalidate>
+            <div class="mb-3">
+              <label for="comentario" class="form-label">Comentario:</label>
+              <textarea
+                class="form-control"
+                id="comentario"
+                name="comentario"
+                [(ngModel)]="comentario"
+                rows="3"
+                required
+                #comentarioCtrl="ngModel"></textarea>
+              <div *ngIf="comentarioCtrl.invalid && (comentarioCtrl.dirty || comentarioCtrl.touched || valoracionForm.submitted)">
+                <small class="text-danger" *ngIf="comentarioCtrl.errors?.['required']">El comentario es obligatorio.</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="valoracion" class="form-label">Valoración:</label>
+              <select
+                class="form-control"
+                id="valoracion"
+                name="valoracion"
+                [(ngModel)]="valoracion"
+                required
+                #valoracionCtrl="ngModel">
+                <option value="1">1/5</option>
+                <option value="2">2/5</option>
+                <option value="3">3/5</option>
+                <option value="4">4/5</option>
+                <option value="5">5/5</option>
+              </select>
+              <div *ngIf="valoracionCtrl.invalid && (valoracionCtrl.dirty || valoracionCtrl.touched || valoracionForm.submitted)">
+                <small class="text-danger" *ngIf="valoracionCtrl.errors?.['required']">La valoración es obligatoria.</small>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

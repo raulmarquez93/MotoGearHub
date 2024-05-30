@@ -8,6 +8,7 @@ import { ApiService } from '../api.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  userProfile: any;
   constructor(private router: Router,private apiService: ApiService) { }
   isLoggedIn = true;
   isAdmin: boolean =false;

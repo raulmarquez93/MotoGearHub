@@ -49,7 +49,8 @@ export class CestaComponent {
       }
     });
   }
-  
+ 
+ 
 
   getUserProfile(): void {
     this.cestaService.getUserProfile().subscribe(

@@ -17,6 +17,9 @@ import { ProductoCreateComponent } from './producto-create/producto-create.compo
 import { ProductoEditComponent } from './producto-edit/producto-edit.component';
 import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
 import { CestaComponent } from './cesta/cesta.component';
+import { CrearValoracionComponent } from './crear-valoracion/crear-valoracion.component';
+import { EditarValoracionComponent } from './editar-valoracion/editar-valoracion.component';
+import { PublicacionesComponent } from './publicaciones/publicaciones.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { CestaComponent } from './cesta/cesta.component';
     ProductoCreateComponent,
     ProductoEditComponent,
     UsuariosListComponent,
-    CestaComponent 
+    CestaComponent,
+    CrearValoracionComponent,
+    EditarValoracionComponent,
+    PublicacionesComponent 
 
   ],
   imports: [

@@ -1,0 +1,65 @@
+.card {
+    border: none;
+    transition: transform 0.3s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.02);
+    }
+  
+    .card-body {
+      padding: 1rem;
+    }
+  
+    .btn-group {
+      margin-top: 1rem;
+    }
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .comments-section {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+  
+    .comment {
+      border-bottom: 1px solid #e9ecef;
+      padding: 5px 0;
+    }
+  
+    .comment:last-child {
+      border-bottom: none;
+    }
+  }
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+  }
+  
+  .btn-link {
+    padding: 0;
+    font-weight: bold;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .input-group textarea {
+    height: 50px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .input-group .btn-primary {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  

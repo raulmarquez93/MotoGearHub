@@ -1,0 +1,40 @@
+.container {
+    margin-top: 20px;
+  }
+  
+  .card {
+    margin-top: 20px;
+  }
+  
+  .preview-image {
+    max-height: 200px;
+    border: 1px solid #dee2e6;
+    padding: 0.25rem;
+    margin-top: 10px;
+  }
+  
+  .custom-file-input {
+    cursor: pointer;
+  }
+  
+  .custom-file-label::after {
+    content: "Examinar";
+  }
+  
+  .custom-file-label {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .mt-3 {
+    margin-top: 1rem;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+  }
+  

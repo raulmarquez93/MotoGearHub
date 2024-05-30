@@ -54,7 +54,7 @@ export class ApiService {
   logout(): Observable<any> {
     const url = `${this.apiUrl}/logout`; // Endpoint para el logout
     const token = this.cookieService.get('access_token'); // Obtener el token de las cookies
-console.log('Token de la cookie:', token);
+  console.log('Token de la cookie:', token);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     this.loggedIn.next(false);
     this.cookieService.delete('access_token');
@@ -93,10 +93,10 @@ console.log('Token de la cookie:', token);
   }
   
   
-deleteUser(id: string): Observable<any> {
+  deleteUser(id: string): Observable<any> {
   const url = `${this.apiUrl}/deleteUser/${id}`;
   return this.http.delete(url);
-}
+  } 
 
 
   handleLoginResponse(response: any): void {
@@ -167,7 +167,7 @@ deleteUser(id: string): Observable<any> {
 
   addCesta(cestaData: any): Observable<any> {
     const url = `${this.apiUrl}/cestas`;
-console.log(cestaData)
+  console.log(cestaData)
     return this.http.post(url, cestaData);
   }
 
@@ -181,5 +181,72 @@ console.log(cestaData)
     const url = `${this.apiUrl}/cestas`;
 
     return this.http.delete(`${url}/${userId}/${productId}`);
+  }
+  getValoracionById(id: string): Observable<any> {
+    const url = `${this.apiUrl}/valoraciones/${id}`;
+    return this.http.get<any>(url);
+  }
+  deleteValoracion(valoracionId: string): Observable<any> {
+    const url = this.apiUrl + '/valoraciones/' + valoracionId;
+    return this.http.delete(url);
+  }
+  createValoracion(valoracionData: any): Observable<any> {
+    const url = `${this.apiUrl}/valoraciones`;
+    return this.http.post(url, valoracionData);
+  }
+  getPublicaciones(): Observable<any> {
+    const url = `${this.apiUrl}/publicaciones`;
+
+    return this.http.get(url);
+  }
+
+  getPublicacion(id: number): Observable<any> {
+    const url = `${this.apiUrl}/publicaciones`;
+
+    return this.http.get(`${url}/${id}`);
+  }
+
+  addPublicacion(publicacion: any): Observable<any> {
+    const url = `${this.apiUrl}/publicaciones`;
+
+    return this.http.post(url, publicacion);
+  }
+
+  updatePublicacion(id: number, publicacion: any): Observable<any> {
+    const url = `${this.apiUrl}/publicaciones`;
+    return this.http.put(`${url}/${id}`, publicacion);
+  }
+
+  deletePublicacion(id: number): Observable<any> {
+    const url = `${this.apiUrl}/publicaciones`;
+
+    return this.http.delete(`${url}/${id}`);
+ 
+  }
+
+  getComentarios(): Observable<any> {
+    const url = `${this.apiUrl}/comentarios-publicaciones`;
+
+    return this.http.get(`${url}`);
+  }
+  addComentario(comentario: any): Observable<any> {
+    const url = `${this.apiUrl}/comentarios-publicaciones`;
+
+    return this.http.post(url, comentario);
+  }
+  deleteComentario(comentarioId: number): Observable<any> {
+    const url = `${this.apiUrl}/comentarios-publicaciones/${comentarioId}`;
+
+    return this.http.delete(`${url}`);
+  }
+  updateValoracion(valoracionId: string, valoracionData: any): Observable<any> {
+    const url = `${this.apiUrl}/valoraciones/${valoracionId}`;
+    return this.http.put(url, valoracionData);
+  }
+  followUser(followerId: number, followedId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/follow`, {
+      follower_id: followerId,
+      followed_id: followedId
+    });
   }
 }

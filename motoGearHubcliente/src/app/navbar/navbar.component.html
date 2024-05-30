@@ -30,7 +30,9 @@
         <a class="nav-link" routerLink="/usuarios-lista">Usuarios</a>
 
         </li>
-
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" routerLink="/publicaciones">Publicaciones</a>
+        </li>
       </ul>
     </div>
   </div>

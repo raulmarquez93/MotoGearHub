@@ -14,20 +14,30 @@ export class ProductoItemComponent  implements OnInit {
   isAdmin: boolean = false;
   deleting = false;
   userProfile: any;
+  valoracion: any[] = []; // Inicializa valoracion como un array vacío
+  haCreadoValoracion = false;
+  datosCrearValoracion: any;
 
   constructor(private route: ActivatedRoute, private productService: ApiService,private router: Router) { }
 
   ngOnInit(): void {
     this.getProductDetail();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id !== null) {
+      this.listarValoraciones(id);
+    }
     this.productService.isAdmin().subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     });
-    this.getUserProfile()
+    this.getUserProfile();
+    this.verificarValoraciones()
+    
   }
   getUserProfile(): void {
     this.productService.getUserProfile().subscribe(
       response => {
         this.userProfile = response.data;
+        this.verificarValoraciones()
       },
       error => {
         console.error('Error al obtener perfil de usuario:', error);
@@ -99,4 +109,46 @@ export class ProductoItemComponent  implements OnInit {
   irACesta(): void {
     this.router.navigate(['/cesta']);
   }
+  listarValoraciones( id: string): void {
+   this.productService.getValoracionById(id).subscribe((data: any) => {
+        this.valoracion = data; // Asigna los detalles del producto obtenidos del servicio
+        console.log('Detalles de la valoracion:', this.valoracion);
+  });
 }
+eliminarValoracion(id: string): void {
+    this.productService.deleteValoracion(id).subscribe(
+      response => {
+        console.log('Valoracion eliminada correctamente');
+        this.listarValoraciones(this.producto.data.id);
+      },
+      error => {
+        console.error('Error al eliminar la valoracion:', error);
+      }
+    );
+  }
+  verificarValoraciones(): void {
+    if (this.valoracion && this.userProfile) {
+    this.haCreadoValoracion = this.valoracion.some((valoracion: any) => valoracion.id_usuario === this.userProfile.id);
+    console.log('Ha creado valoración:', this.haCreadoValoracion);
+    }
+  }
+  crearValoracion(): void {
+   
+    this.router.navigate(['crear-valoracion' , this.producto.data.id]);
+  //   const valoracionData = {
+  //     id_usuario: this.userProfile.id,
+  //     id_producto: this.producto.data.id,
+  //     valoracion: 5,
+  //     comentario: '¡Excelente producto!'
+  //   };
+  //   this.productService.createValoracion(valoracionData).subscribe(() => {
+  //     this.listarValoraciones(this.producto.data.id);
+  //     this.verificarValoraciones();
+  //   });
+   }
+  editarValoracion(id: string): void {
+
+    this.router.navigate(['editar-valoracion', id]);
+  }
+ }
+ 

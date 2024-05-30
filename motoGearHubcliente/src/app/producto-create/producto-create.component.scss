@@ -1,0 +1,68 @@
+// Variables para colores y espaciado
+$primary-color: #007bff;
+$danger-color: #dc3545;
+$spacing-unit: 1rem;
+
+.container {
+  margin-top: 3rem;
+}
+
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+  background-color: $primary-color;
+  color: #fff;
+  text-align: center;
+  padding: $spacing-unit;
+}
+
+.form-group {
+  margin-bottom: $spacing-unit;
+
+  label {
+    font-weight: bold;
+  }
+  .custom-file {
+    .custom-file-input {
+      &:lang(en)~.custom-file-label::after {
+        content: "Buscar";
+      }
+    }
+  }
+
+  .preview-image {
+    max-height: 200px;
+    border: 1px solid #dee2e6;
+    padding: 0.25rem;
+    margin-top: $spacing-unit;
+  }
+
+  .form-control,
+  .form-control-file {
+    border-radius: 0.25rem;
+  }
+
+  .text-danger {
+    margin-top: 0.25rem;
+  }
+}
+
+button[type='submit'] {
+  margin-top: $spacing-unit;
+  background-color: $primary-color;
+  border: none;
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+.preview-image {
+  max-height: 200px;
+  border: 1px solid #dee2e6;
+  padding: 0.25rem;
+  margin-top: $spacing-unit;
+}
+
+  

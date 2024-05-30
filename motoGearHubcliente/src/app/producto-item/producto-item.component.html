@@ -41,4 +41,24 @@
       </div>
     </div>
   </div>
+  <div class="container">
+    <div class="valoraciones">
+      <h2>Valoraciones</h2>
+    </div>
+    <button *ngIf="!haCreadoValoracion " class="btn btn-primary mt-3" (click)="crearValoracion()">Crear Valoración</button>
+  </div>
+      <div *ngIf="valoracion.length === 0" class="alert alert-info">No hay valoraciones para este producto.</div>
+      <div *ngFor="let valoracion of valoracion" class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ valoracion.nombre_usuario }}</h5>
+            <p class="card-text">{{ valoracion.comentario }}</p>
+            <p class="card-text">Valoración: {{ valoracion.valoracion_numero }}/5</p>
+            <p class="card-text">Fecha: {{ valoracion.updated_at }}</p>
+            <button *ngIf="valoracion.id_usuario === userProfile.id || isAdmin" class="btn btn-danger" (click)="eliminarValoracion(valoracion.id)">Eliminar</button>
+            <button *ngIf="valoracion.id_usuario === userProfile.id" class="btn btn-danger" (click)="editarValoracion(valoracion.id)">Editar</button>
+
+        </div>
+     
+    </div>
+
   
