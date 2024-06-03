@@ -249,4 +249,22 @@ export class ApiService {
       followed_id: followedId
     });
   }
+  unfollowUser(followerId: number, followedId: number): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        follower_id: followerId,
+        followed_id: followedId
+      }
+    };
+  
+    return this.http.delete(`${this.apiUrl}/unfollow`, options);
+  }
+  
+
+  getFollowedUsers(userId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/followed/${userId}`);
+  }
 }
