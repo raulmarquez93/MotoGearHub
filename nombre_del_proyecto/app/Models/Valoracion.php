@@ -12,6 +12,7 @@ class Valoracion extends Model
     protected $table = 'valoracions'; // Nombre de la tabla en la base de datos
 
     protected $fillable = [
+        
         'id_usuario',
         'id_producto',
         'valoracion_numero',

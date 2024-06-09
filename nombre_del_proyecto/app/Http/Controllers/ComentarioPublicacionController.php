@@ -24,6 +24,7 @@ class ComentarioPublicacionController extends Controller
         $comentario = ComentarioPublicacion::create($request->all());
         return response()->json($comentario, 201);
     }
+    
 
     public function show($id)
     {

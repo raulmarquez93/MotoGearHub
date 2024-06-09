@@ -21,6 +21,15 @@ use App\Http\Controllers\ValoracionController;
 */
 use App\Http\Controllers\PublicacionController;
 use App\Http\Controllers\ComentarioPublicacionController;
+use App\Http\Controllers\FollowController;
+
+
+    Route::post('/follow', [FollowController::class, 'store']);
+    Route::delete('/unfollow', [FollowController::class, 'destroy']);
+    Route::get('/followers/{user}', [FollowController::class, 'followers']);
+    Route::get('/followings/{user}', [FollowController::class, 'followings']);
+    Route::get('/followed/{userId}', [FollowController::class, 'getFollowedUsers']);
+    Route::delete('/unfollow', [FollowController::class, 'unfollow']);
 
 Route::apiResource('comentarios-publicaciones', ComentarioPublicacionController::class);
 Route::put('comentarios-publicaciones/{id}', [ComentarioPublicacionController::class, 'update']);
